@@ -16,7 +16,7 @@ console_error_panic_hook = "0.1.7"
 indoc = "2.0.4"
 leptonic = { path = "../../leptonic", features = ["csr"] }
 leptos = { version = "0.5.1", features = ["csr"] }
-leptos-use = "0.7.1"
+leptos-use = "0.8.0"
 leptos_icons = { version = "0.1.0", features = [
     "BsGithub",
     "BsSearch",

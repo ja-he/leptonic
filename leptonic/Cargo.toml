@@ -75,6 +75,7 @@ wasm-bindgen-test = "0.3.37"
 web-sys = "0.3.64"
 
 [features]
-csr = ["leptos/csr"]
-ssr = ["leptos/ssr", "leptos-use/ssr"]
-hydrate = ["leptos/hydrate"]
+nightly = ["leptos/nightly", "leptos_router/nightly"]
+csr = ["leptos/csr", "leptos_router/csr"]
+ssr = ["leptos/ssr", "leptos_router/ssr"]
+hydrate = ["leptos/hydrate", "leptos_router/hydrate"]

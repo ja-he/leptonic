@@ -6,8 +6,9 @@ use leptos_router::{State, ToHref, A};
 use leptos_use::on_click_outside;
 
 use crate::{
+    hooks::button::*,
     icon::Icon,
-    prelude::Consumer,
+    prelude::{AriaExpanded, AriaHasPopup, Consumer},
     OptionalMaybeSignal,
 };
 
@@ -101,8 +102,16 @@ pub fn Button(
     #[prop(into, optional)] id: Option<AttributeValue>,
     #[prop(into, optional)] class: OptionalMaybeSignal<String>,
     #[prop(into, optional)] style: Option<AttributeValue>,
+    #[prop(into, optional)] aria_haspopup: OptionalMaybeSignal<AriaHasPopup>,
+    #[prop(into, optional)] aria_expanded: OptionalMaybeSignal<AriaExpanded>,
     children: Children,
 ) -> impl IntoView {
+    let btn = use_button(InitialButtonProps {
+        disabled: disabled.or(false),
+        aria_haspopup: aria_haspopup.or_default(),
+        aria_expanded: aria_expanded.or_default(),
+    });
+
     let has_variations = variations.0.as_ref().is_some();
 
     let variations = move || {
@@ -135,8 +144,7 @@ pub fn Button(
                     <div class="dropdown" class:active=move || dropdown_open.get() && !disabled.get()>
                         { variations.get() }
                     </div>
-                }
-                .into_view(),
+                }.into_view(),
             )
         } else {
             None
@@ -145,15 +153,15 @@ pub fn Button(
 
     view! {
         <button
+            {..btn.props}
             id=id
             class=move || class.0.as_ref().map(|it| format!("{} leptonic-btn", it.get())).unwrap_or("leptonic-btn".to_string())
             class:has-variations=has_variations
             class:active=move || active.get()
+            style=style
             data-variant=move || variant.get().as_str()
             data-color=move || color.get().as_str()
             data-size=move || size.get().as_str()
-            style=style
-            aria-disabled=move || disabled.get()
             on:click=move |e| {
                 if !disabled.get_untracked() {
                     e.stop_propagation();
