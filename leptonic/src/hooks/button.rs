@@ -11,7 +11,7 @@ pub struct InitialButtonProps {
 
 #[derive(Debug, Clone)]
 pub struct UseButtonReturn {
-    /// Spread these props onto your button using the spreac syntax: `<button {..props}>...`
+    /// Spread these props onto your button using the spread syntax: `<button {..props}>...`
     pub props: HashMap<&'static str, Attribute>,
 }
 
